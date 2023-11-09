@@ -1,0 +1,140 @@
+{% extends './base.html' %}
+
+<!-- css for html code-->
+{% block head %}
+<style>
+
+h1{
+  text-align:center;
+  font-size: 50px;
+}
+
+.add_btn, .edit_btn, .remove_btn {
+    display: inline-block;
+}
+
+.add_btn{
+  padding: 5px 5px;
+  background: green;
+}
+
+.edit_btn{
+  padding: 5px 5px;
+  background: yellow;
+  float: left;
+  text-align: center;
+  margin-top: 10px;
+}
+  
+.delete_btn{
+  padding: 5px 5px;
+  background: red;
+  float: right;
+  text-align: center;
+  margin-top: 10px;
+}
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    padding: 10px;
+    width: 400px; /* Adjust the width as needed */
+    height: 200px;
+  }
+
+  h3 {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  p {
+    text-align: center;
+  }
+
+
+  button:hover {
+    background-color: #cc0000;
+  }
+
+
+</style>
+{% endblock %}
+
+
+{% block body %}
+<h1>My Book Tracker</h1>
+
+
+<!-- Buttons div class -->
+
+<div class="buttons">
+  <div class='add_btn'>
+      <a href="{% url 'add_book' %}">
+        <button>Add New Book</button></a>
+  </div>
+</div>
+
+</div>
+<!--<h1>Book List</h1>-->
+<!--<h1>Book List</h1>-->
+<div class="card-container">
+  {% if book_list %}
+    {% for book in book_list %}
+      <div class="card">
+        <h3>{{ book.title }}</h3>
+        <p>{{ book.summary }}</p>
+        <p>Placeholder for chapter stuff</p>
+        <div class="delete_btn">
+          <a href="{% url 'delete_book' pk=book.pk %}"><button>Delete Book</button></a>
+        </div>
+        <div class="edit_btn">
+          <a href="{% url 'edit_book' pk=book.pk %}"><button>Edit Book</button></a>
+        </div>
+        <div class="view_btn">
+          <a href="{% url 'view_book' pk=book.pk %}"><button>View Book</button></a>
+        </div>
+        <div class="chapter_btn">
+          <a href="{% url 'add_chapter' pk=book.pk %}"><button>Add Chapter</button></a>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}
+
+<!--The below code doesn't work so Chase added the above. Feel free to edit the above code. Just please leave it in a working state once done-->
+
+<!-- Display books as clickable titles and clickable pictures? -->
+  <div class="container">
+      <div class="row mb-5">
+          <div class="col-12">
+              <div class="row">
+                  <div class="col-10 offset-2 m-5">
+                    <h2 style="font-size:30px;">Book List</h2>
+                  </div>
+              </div>
+              <div class="row">
+
+                <!-- book objects passed--> {% for book in books %}
+                  <div class="col-12 col-md-6 col-lg-4 mb-5">
+                    <!-- book pk --><a href="/books/{{book.pk}}">
+                          <div class="card shadow" style="width: 18rem; margin:0px auto;">
+                              <!-- book cover image--> <img src="{{ book.image.url }}" class="card-img-top" height="380px">
+                              <div class="card-body">
+                                <!-- book title--> <h4 class="card-title text-center">{{ book.title }}</h4>
+                              </div>
+                          </div>
+                      </a>
+                  </div>
+                  {% endfor %}
+
+              </div>
+          </div>
+      </div>
+  </div>
