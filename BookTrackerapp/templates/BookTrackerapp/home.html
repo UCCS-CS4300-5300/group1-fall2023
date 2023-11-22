@@ -1,0 +1,62 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block body %}
+  <div class="container">
+    <h1>My Book Tracker</h1>
+
+    <div class="card-buttons">
+      <div class='back-button'>
+        <a href="{% url 'add_book' %}">
+          <button class="btn btn-primary">Add New Book</button>
+        </a>
+      </div>
+    </div>
+
+    <div class="card-container">
+      {% if book_list %}
+        {% for book in book_list %}
+          <div class="card">
+            <div class="text-content">
+              <h3><a href="{% url 'view_book' pk=book.pk %}">{{ book.title }}</a></h3>
+              <a href="{% url 'view_book' pk=book.pk %}">
+                <!-- <img src="{% static 'images/default.jpeg' %}" alt="Book Image"> -->
+                {% if book.image %}
+                  <img src="{{ book.image.url }}" alt="{{ book.title }} Image">
+                {% elif book.image %}
+                <img src="{{ book.image.url }}?{{ book.updated_at }}" alt="{{ book.title }} Image">
+                {% else %}
+                  <img src="{% static 'images/default.jpeg' %}" alt="Default Image">
+                {% endif %}
+
+                
+              </a>
+            </div>
+            <div class="card-buttons">
+              <a href="{% url 'view_book' pk=book.pk %}">
+                <button class="btn btn-primary">View</button>
+              </a>
+              <a href="{% url 'edit_book' pk=book.pk %}">
+                <button class="btn btn-primary">Edit</button>
+              </a>
+              <a href="{% url 'delete_book' pk=book.pk %}">
+                <button class="btn btn-primary">Delete</button>
+              </a>
+            </div>
+            <div class="add-buttons">
+              <a href="{% url 'add_chapter' pk=book.pk %}">
+                <button class="btn btn-primary">Add Chapter</button>
+              </a>
+              <a href="{% url 'add_character' pk=book.pk %}">
+                <button class="btn btn-primary">Add Character</button>
+              </a>
+              <a href="{% url 'edit_character' pk=book.pk %}">
+                <button class="btn btn-primary">Edit Character</button>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

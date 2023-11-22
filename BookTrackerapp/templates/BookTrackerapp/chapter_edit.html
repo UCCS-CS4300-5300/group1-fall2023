@@ -1,0 +1,29 @@
+{% extends './base.html' %}
+
+{% block body %}
+  <div>
+    <h1>Edit Chapter</h1>
+    <form method="post">
+      {% csrf_token %}
+      <!-- Dropdown menu -->
+      <label for="{{ form.book.id_for_label }}">Book:</label>
+      {{ form.book }}
+
+      <!-- Title input -->
+      <label for="{{ form.title.id_for_label }}">Title:</label>
+      {{ form.title }}
+
+      <!-- Chapter Number input -->
+      <label for="{{ form.chapternumber.id_for_label }}">Chapter Number:</label>
+      {{ form.chapternumber }}
+
+      <!-- Description input -->
+      <label for="{{ form.description.id_for_label }}">Description:</label>
+      {{ form.description }}
+
+      <input type="submit" value="Submit"/>
+      <a class="btn-fancy" href="{% url 'book_list' %}">Back to Home</a>
+    </form>
+
+  </div>
+{% endblock %}
